@@ -1,0 +1,91 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+
+namespace GuessThatNumber
+{
+    public class Program
+    {
+        //this is the number the user needs to guess.  Set its value in your code using a RNG.
+        static int NumberToGuess = 0;
+        static Random NumberGetter = new Random();
+       
+        static void Main(string[] args)
+        {
+
+          // Game loop
+            while (!Quiter())
+            {
+                // title screen with any key to play
+                Console.ReadKey();
+                // enter the game state to find skeletor by using the guess number
+                // enter a small game where we use the guess number, but as a hitter counter
+            }
+        }
+
+        public static bool Quiter()
+        {
+            string quitMessage = "Are you a quiter";
+            string titleMessage = "He's a quiter... It's in the eyes.";
+            DialogResult userResponse = MessageBox.Show(quitMessage,titleMessage, MessageBoxButtons.YesNo, MessageBoxIcon.Error);
+            Console.WriteLine("Are you a quiter? ");
+
+            if (userResponse == DialogResult.Yes)
+            {
+                Console.WriteLine("Ah, yes... Yes, I knew you can't defeat me!!!");
+                return true;
+            }
+            else
+            {
+                Console.WriteLine("Oh, you come back for more. Great, great, HA HA!!!");
+                return false;
+            }
+        }
+        
+        public static bool ValidateInput(string userInput)
+        {
+            bool Validater = true;
+            //check to make sure that the users input is a valid number between 1 and 100.
+            for (int i = 0; i < userInput.Length; i++)
+            {
+                if (Char.IsLetter(userInput[i]))
+                    Validater = false;
+            }
+
+            if (Convert.ToInt32(userInput) > 0 && Convert.ToInt32(userInput) < 101 && Validater)
+            {
+                Validater = true;
+            }
+            return Validater;
+        }
+
+        public static void SetNumberToGuess(int number)
+        {
+            //TODO: make this function override your global variable holding the number the user needs to guess.  This is used only for testing methods.
+            NumberToGuess = number;
+        }
+
+        public static bool IsGuessTooHigh(int userGuess)
+        {
+            //TODO: return true if the number guessed by the user is too high
+            if (userGuess > NumberToGuess)
+            {
+                return true;
+            }
+            return false;
+        }
+
+        public static bool IsGuessTooLow(int userGuess)
+        {
+            //TODO: return true if the number guessed by the user is too low
+            if (userGuess < NumberToGuess)
+            {
+                return true;
+            }
+            return false;
+        }
+    }
+}
