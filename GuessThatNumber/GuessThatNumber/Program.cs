@@ -77,6 +77,7 @@ namespace GuessThatNumber
             string userInput = Console.ReadLine();
             if (ValidateInput(userInput))
             {
+                
                 return Convert.ToInt32(userInput);
             }
             else
@@ -95,7 +96,6 @@ namespace GuessThatNumber
         {
             int GuessedNumber = GetUserInput("So, you want to find me? I am in location from 1 to 100. So, please make your entry.");
             int attempts = 1;
-
             // keeps on looping until guessedNumber equals to NumberToGuess
             while (GuessedNumber != NumberToGuess)
             {
