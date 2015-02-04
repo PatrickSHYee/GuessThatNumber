@@ -162,11 +162,11 @@ namespace GuessThatNumber
             //check to make sure that the users input is a valid number between 1 and 100.
             for (int i = 0; i < userInput.Length; i++)
             {
-                if (Char.IsLetter(userInput[i]))
+                if (!(Char.IsNumber(userInput[i])) || Char.IsPunctuation(userInput[i]) || Char.IsSymbol(userInput[i] ))
                     return false;
             }
 
-
+            // looks at userInput to 1 - 100
             if (Convert.ToInt32(userInput) > 0 && Convert.ToInt32(userInput) < 101)
             {
                 return true;
