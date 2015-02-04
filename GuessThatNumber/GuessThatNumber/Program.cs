@@ -19,7 +19,11 @@ namespace GuessThatNumber
             string message = null;
             string messageTitle = null;
 
-          // Game loop
+            // message for quit
+            string quitMessage = "Are you a quiter";
+            string quitTitleMessage = "He's a quiter... It's in the eyes.";
+
+          // Game loop with a quit message
             {
                 // set console window size
                 Console.SetWindowSize((int)Math.Floor(Console.LargestWindowWidth * 0.8), (int)Math.Floor(Console.LargestWindowHeight * 0.8));
@@ -30,7 +34,7 @@ namespace GuessThatNumber
                 message = "Do you know where I am?";
                 messageTitle = "He doesn't know... he he";
                 MessageBox.Show(message, messageTitle, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                // if true the user guessed right
+                // This loops through the user input
                 if (FindSkeletor())
                 {
                     message = "Child, do you think you can defeat me. He!! He!!";
@@ -38,12 +42,16 @@ namespace GuessThatNumber
                     MessageBox.Show(message, messageTitle, MessageBoxButtons.OK, MessageBoxIcon.Hand);
                 }
                 // enter a small game where we use the guess number, but as a hitter counter
-            } while (Quiter());
+            } while (Quiter(quitMessage, quitTitleMessage));
         }
 
+        /// <summary>
+        /// Clears and prints an OK title screen while you play the game.
+        /// </summary>
         public static void TitleScreen()
         {
             Console.Clear();
+            // ascii art
             Console.WriteLine(@"
       :::::::: :::    ::::::::::::::::       ::::::::::::::::::::::::::::: ::::::::: 
     :+:    :+::+:   :+: :+:       :+:       :+:           :+:   :+:    :+::+:    :+: 
@@ -58,6 +66,11 @@ namespace GuessThatNumber
             Console.ReadKey();
         }
 
+        /// <summary>
+        /// Gets the users input and if not it prints a bad message to the screen.  It also converts the string to a integer
+        /// </summary>
+        /// <param name="message"></param>
+        /// <returns>0 for invalid input or the string gets converted to a integer</returns>
         public static int GetUserInput(string message)
         {
             Console.WriteLine(message);
@@ -68,50 +81,63 @@ namespace GuessThatNumber
             }
             else
             {
-                Console.WriteLine("You are a troublesome child. he he");
+                //Console.WriteLine("You are a troublesome child. he he");
+                MessageBox.Show("You are a troublesome child. he he", userInput + "invalid input...", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return 0;
             }
         }
 
+        /// <summary>
+        /// At the state the user is finding Skeletor
+        /// </summary>
+        /// <returns>when skeletor is found it returns true</returns>
         public static bool FindSkeletor()
         {
             int GuessedNumber = GetUserInput("So, you want to find me? I am in location from 1 to 100. So, please make your entry.");
             int attempts = 1;
+
+            // keeps on looping until guessedNumber equals to NumberToGuess
             while (GuessedNumber != NumberToGuess)
             {
-                GuessThatNumber(GuessedNumber);
+                GuessThatNumber(GuessedNumber, "He!! He!! he, he...  You, no brain, you are dead cold. he, he");
                 GuessedNumber = GetUserInput("What's the matter? You can't find me.");
                 attempts++;
             }
 
+            MessageBox.Show("You slow child. It took you " + attempts + " rounds to find. he he", "Skeletor was found", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+
             return true;
         }
 
-        public static bool GuessThatNumber(int GuessedNumber)
+        /// <summary>
+        /// Messages are print to the console when user inputs a guess.
+        /// </summary>
+        /// <param name="GuessedNumber">user input</param>
+        /// <param name="message">Random message from main function</param>
+        public static void GuessThatNumber(int GuessedNumber, string message)
         {
                 if (GuessedNumber > NumberToGuess)
                 {
                     Console.BackgroundColor = ConsoleColor.White;
                     Console.ForegroundColor = ConsoleColor.Blue;
-                    Console.WriteLine("He!! He!! he, he...  You, no brain, you are dead cold. he, he");
-                    return false;
+                    Console.WriteLine(message);
                 }
                 else
                 {
                     Console.BackgroundColor = ConsoleColor.Black;
                     Console.ForegroundColor = ConsoleColor.White;
-                    Console.WriteLine("You, mencing child. he he... You are getting closer...");
-                    return false;
+                    Console.WriteLine("You, mencing child. he he...");
                 }
-                return true;
         }
 
-        public static bool Quiter()
+        /// <summary>
+        /// A quit message displays and waits for the user's input
+        /// </summary>
+        /// <returns>Yes return false and no returns true</returns>
+        public static bool Quiter(string quitMessage, string titleMessage)
         {
-            string quitMessage = "Are you a quiter";
-            string titleMessage = "He's a quiter... It's in the eyes.";
             DialogResult userResponse = MessageBox.Show(quitMessage,titleMessage, MessageBoxButtons.YesNo, MessageBoxIcon.Error);
-            Console.WriteLine("Are you a quiter? ");
+            Console.WriteLine("Are you a quitter?");
 
             if (userResponse == DialogResult.Yes)
             {
@@ -126,6 +152,11 @@ namespace GuessThatNumber
             }
         }
         
+        /// <summary>
+        /// Valids the user input
+        /// </summary>
+        /// <param name="userInput">User input</param>
+        /// <returns>valid or not valid</returns>
         public static bool ValidateInput(string userInput)
         {
             //check to make sure that the users input is a valid number between 1 and 100.
@@ -143,12 +174,21 @@ namespace GuessThatNumber
             return false;
         }
 
+        /// <summary>
+        /// setter for the Number 
+        /// </summary>
+        /// <param name="number"></param>
         public static void SetNumberToGuess(int number)
         {
             //TODO: make this function override your global variable holding the number the user needs to guess.  This is used only for testing methods.
             NumberToGuess = number;
         }
 
+        /// <summary>
+        /// Compares the user's guess to the number, if it's too high.
+        /// </summary>
+        /// <param name="userGuess">userinput</param>
+        /// <returns>boolean</returns>
         public static bool IsGuessTooHigh(int userGuess)
         {
             //TODO: return true if the number guessed by the user is too high
@@ -159,6 +199,11 @@ namespace GuessThatNumber
             return false;
         }
 
+        /// <summary>
+        /// Compares the user's input with number to guess and if it is too low it returns true
+        /// </summary>
+        /// <param name="userGuess">user's input</param>
+        /// <returns>boolean</returns>
         public static bool IsGuessTooLow(int userGuess)
         {
             //TODO: return true if the number guessed by the user is too low
