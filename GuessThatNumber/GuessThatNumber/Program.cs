@@ -22,11 +22,11 @@ namespace GuessThatNumber
             // message for quit
             string quitMessage = "Are you a quiter";
             string quitTitleMessage = "He's a quiter... It's in the eyes.";
+            // set console window size
+            Console.SetWindowSize((int)Math.Floor(Console.LargestWindowWidth * 0.8), (int)Math.Floor(Console.LargestWindowHeight * 0.8));
 
-          // Game loop with a quit message
+            // main Game loop with a quit message
             {
-                // set console window size
-                Console.SetWindowSize((int)Math.Floor(Console.LargestWindowWidth * 0.8), (int)Math.Floor(Console.LargestWindowHeight * 0.8));
                 // title screen with any key to play
                 TitleScreen();
                 // enter the game state to find skeletor by using the guess number
@@ -116,13 +116,13 @@ namespace GuessThatNumber
         /// <param name="message">Random message from main function</param>
         public static void GuessThatNumber(int GuessedNumber, string message)
         {
-                if (GuessedNumber > NumberToGuess)
+                if (IsGuessTooHigh(GuessedNumber))
                 {
                     Console.BackgroundColor = ConsoleColor.White;
                     Console.ForegroundColor = ConsoleColor.Blue;
                     Console.WriteLine(message);
                 }
-                else
+                if (IsGuessTooLow(GuessedNumber))
                 {
                     Console.BackgroundColor = ConsoleColor.Black;
                     Console.ForegroundColor = ConsoleColor.White;
@@ -160,12 +160,13 @@ namespace GuessThatNumber
         public static bool ValidateInput(string userInput)
         {
             //check to make sure that the users input is a valid number between 1 and 100.
-            for (int i = 0; i < userInput.Length; i++)
-            {
-                if (!(Char.IsNumber(userInput[i])) || Char.IsPunctuation(userInput[i]) || Char.IsSymbol(userInput[i] ))
-                    return false;
-            }
-
+            //for (int i = 0; i < userInput.Length; i++)
+            //{
+            //    if (!Char.IsNumber(userInput[i]))
+            //        return false;
+            //}
+            int tempInteger;
+            if (int.TryParse(userInput, out tempInteger))
             // looks at userInput to 1 - 100
             if (Convert.ToInt32(userInput) > 0 && Convert.ToInt32(userInput) < 101)
             {
