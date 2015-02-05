@@ -35,12 +35,7 @@ namespace GuessThatNumber
                 messageTitle = "He doesn't know... he he";
                 MessageBox.Show(message, messageTitle, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 // This loops through the user input
-                if (FindSkeletor())
-                {
-                    message = "Child, do you think you can defeat me. He!! He!!";
-                    messageTitle = "Prepare, yourself...";
-                    MessageBox.Show(message, messageTitle, MessageBoxButtons.OK, MessageBoxIcon.Hand);
-                }
+                FindSkeletor();
                 // enter a small game where we use the guess number, but as a hitter counter
             } while (Quiter(quitMessage, quitTitleMessage));
         }
@@ -99,7 +94,7 @@ namespace GuessThatNumber
             // keeps on looping until guessedNumber equals to NumberToGuess
             while (GuessedNumber != NumberToGuess)
             {
-                GuessThatNumber(GuessedNumber, "He!! He!! he, he...  You, no brain, you are dead cold. he, he");
+                GuessThatNumber(GuessedNumber, "He!! He!! he, he...  You, no brain, are you high? he, he");
                 GuessedNumber = GetUserInput("What's the matter? You can't find me.");
                 attempts++;
             }
@@ -126,7 +121,7 @@ namespace GuessThatNumber
                 {
                     Console.BackgroundColor = ConsoleColor.Black;
                     Console.ForegroundColor = ConsoleColor.White;
-                    Console.WriteLine("You, mencing child. he he...");
+                    Console.WriteLine("You, mencing child. he he... You are too low");
                 }
         }
 
