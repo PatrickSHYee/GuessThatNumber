@@ -160,11 +160,6 @@ namespace GuessThatNumber
         public static bool ValidateInput(string userInput)
         {
             //check to make sure that the users input is a valid number between 1 and 100.
-            //for (int i = 0; i < userInput.Length; i++)
-            //{
-            //    if (!Char.IsNumber(userInput[i]))
-            //        return false;
-            //}
             int tempInteger;
             if (int.TryParse(userInput, out tempInteger))
             // looks at userInput to 1 - 100
